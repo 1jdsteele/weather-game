@@ -10,9 +10,13 @@ import Select from "@mui/material/Select";
 
 import { useState } from "react";
 
-function Intro() {
-  const [region, setRegion] = React.useState("");
-
+function Intro({
+  region,
+  setRegion,
+  handleIntroSubmit,
+  numQuestions,
+  setNumQuestions,
+}) {
   const handleChange = (event) => {
     setRegion(event.target.value);
   };
@@ -22,7 +26,11 @@ function Intro() {
       <h1>INTRO</h1>
       <h3>intro title</h3>
       {/* <PlayerChoice question={"How many players?"}></PlayerChoice> */}
-      {/* <PlayerChoice question={"How many questions?"}></PlayerChoice> */}
+      <PlayerChoice
+        question={"How many questions?"}
+        numQuestions={numQuestions}
+        setNumQuestions={setNumQuestions}
+      ></PlayerChoice>
 
       {/* drop down menu for regions */}
       <Box sx={{ minWidth: 120 }}>
@@ -31,7 +39,7 @@ function Intro() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            // value="this the value yo"
+            value={region}
             label="region from label"
             onChange={handleChange}
           >
@@ -44,9 +52,7 @@ function Intro() {
           </Select>
         </FormControl>
       </Box>
-      <button onClick={() => console.log("from intro submit", region)}>
-        submit
-      </button>
+      <button onClick={handleIntroSubmit}>submit</button>
     </>
   );
 }

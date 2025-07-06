@@ -1,10 +1,10 @@
-function Outro() {
+function Outro({ player1Score, startOver }) {
   return (
     <>
       <h1>OUTRO</h1>
       <h3>outr title</h3>
-      <p>winner declaration</p>
-      <button>play again?</button>{" "}
+      <p>{player1Score}</p>
+      <button onClick={startOver}>play again</button>{" "}
     </>
   );
 }
