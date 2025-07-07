@@ -107,7 +107,7 @@ import { useState, useEffect } from "react";
 
 // ✅ In-memory cache persists across renders during the session!
 //cache AB test HERE
-const cityCache = {};
+// const cityCache = {};
 
 function QuestionFormat({
   currentCities,
@@ -132,11 +132,11 @@ function QuestionFormat({
 
     async function fetchCityData(city, setter) {
       // cache AB test HERE
-      if (cityCache[city]) {
-        console.log(`✅ Cache hit for ${city}`);
-        setter(cityCache[city]);
-        return;
-      }
+      // if (cityCache[city]) {
+      //   console.log(`✅ Cache hit for ${city}`);
+      //   setter(cityCache[city]);
+      //   return;
+      // }
 
       console.log(`🌐 Fetching API for ${city}`);
       try {
@@ -147,7 +147,7 @@ function QuestionFormat({
           return;
         }
         // cache AB test HERE
-        cityCache[city] = data; // ✅ Save to cache
+        // cityCache[city] = data; // ✅ Save to cache
         setter(data);
       } catch (err) {
         console.error(`❌ Error fetching data for ${city}:`, err);

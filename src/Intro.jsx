@@ -24,7 +24,7 @@ function Intro({
   return (
     <>
       <h1>INTRO</h1>
-      <h3>intro title: http to https</h3>
+      <h3>intro title: trying deployment w/o cache</h3>
       {/* <PlayerChoice question={"How many players?"}></PlayerChoice> */}
       <PlayerChoice
         question={"How many questions?"}
