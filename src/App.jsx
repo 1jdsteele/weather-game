@@ -7,19 +7,22 @@ import Outro from "./Outro";
 import Gameplay from "./Gameplay";
 
 function App() {
-  //functions and vars for intro
+  //user defined vars
   const [region, setRegion] = useState("");
   const [numQuestions, setNumQuestions] = useState(1);
 
+  //lists of city in a region, formatted to be called by APi
   const africaCities = ["Nairobi", "Cairo", "Johannesburg", "Alexandria"];
   const americaCities = ["Pasadena", "Los%20Angeles", "Seattle"];
   const australiaCities = ["Auckland", "Brisbane", "Manila"];
   const eurasiaCities = ["Hong%20Kong", "Barcelona", "Vienna"];
 
+  //vars that control game states
   const [player1Score, setPlayer1Score] = useState(0);
   const [cities, setCities] = useState(["Vienna", "Hong Kong", "Barcelona"]); // from Intro
   const [phase, setPhase] = useState("intro");
 
+  //when submit hit in intro, get region, get numQuestions, start Gameplay
   const handleIntroSubmit = () => {
     console.log("Region:", region);
     console.log("Num questions:", numQuestions);
@@ -44,9 +47,9 @@ function App() {
 
     console.log("Cities in region:", selectedCities);
 
-    setCities(selectedCities); // <— update your cities for Gameplay
+    setCities(selectedCities);
 
-    setPhase("gameplay"); // <— move to Gameplay now!
+    setPhase("gameplay");
   };
 
   const handleGamePlayNext = () => {
@@ -84,22 +87,6 @@ function App() {
 
   return (
     <>
-      {/* <Intro
-        region={region}
-        setRegion={setRegion}
-        numQuestions={numQuestions}
-        setNumQuestions={setNumQuestions}
-        handleIntroSubmit={handleIntroSubmit}
-      ></Intro>
-
-      <Gameplay
-        cities={cities}
-        player1Score={player1Score}
-        setPlayer1Score={setPlayer1Score}
-        goToOutro={() => setPhase("outro")}
-      ></Gameplay>
-
-      <Outro></Outro> */}
       {phase === "intro" && (
         <Intro
           region={region}
@@ -115,6 +102,10 @@ function App() {
           numQuestions={numQuestions}
           player1Score={player1Score}
           setPlayer1Score={setPlayer1Score}
+          //question for code reviewer:
+          // I already have handleGamePlayNext
+          // but goToOutro is so simple, should I just do what I do here
+          //or do I should I call handleGamePlayNext here?
           goToOutro={() => setPhase("outro")}
         />
       )}
