@@ -116,7 +116,7 @@ function QuestionFormat({
   setPlayer1Score,
 }) {
   const url =
-    "http://api.weatherstack.com/current?access_key=d718cf0a973843f442a7d9f92d9ef343&query=";
+    "https://api.weatherstack.com/current?access_key=d718cf0a973843f442a7d9f92d9ef343&query=";
 
   const cityA = currentCities[0];
   const cityB = currentCities[1];
