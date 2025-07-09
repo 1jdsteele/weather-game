@@ -1,3 +1,6 @@
+//I used ai to do my shuffling and to print console statments
+// I learned I like the emojis it uses bc it differentiates my logs from other print outs
+
 import { useState } from "react";
 
 import "./App.css";
@@ -93,6 +96,7 @@ function App() {
           setRegion={setRegion}
           numQuestions={numQuestions}
           setNumQuestions={setNumQuestions}
+          //TO DO: do not allow no region to be submitted
           handleIntroSubmit={handleIntroSubmit}
         />
       )}

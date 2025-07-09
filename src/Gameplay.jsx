@@ -1,84 +1,3 @@
-// import QuestionFormat from "./QuestionFormat";
-// import { useState, useEffect } from "react";
-
-// function Gameplay({
-//   cities,
-//   numQuestions,
-//   player1Score,
-//   setPlayer1Score,
-//   goToOutro,
-// }) {
-//   const questionTypes = ["temp", "west"];
-//   const [questionType, setQuestionType] = useState("");
-
-//   const [currentQuestion, setCurrentQuestion] = useState(null);
-//   const [currentRound, setCurrentRound] = useState(1);
-
-//   const [shuffledCities, setShuffledCities] = useState([]);
-
-//   const startIndex = (currentRound - 1) * 2;
-//   const currentCities = shuffledCities.slice(startIndex, startIndex + 2);
-
-//   //move getData() function here
-//   function handleGamePlayNext() {
-//     if (currentRound < numQuestions) {
-//       setCurrentRound(currentRound + 1);
-//     } else {
-//       // Reached the last round — go to outro
-//       goToOutro();
-//     }
-//   }
-
-//   //fisher yates shuffle
-//   function shuffleArray(array) {
-//     // Make a copy so we don't mutate the original
-//     const shuffled = [...array];
-//     for (let i = shuffled.length - 1; i > 0; i--) {
-//       const j = Math.floor(Math.random() * (i + 1));
-//       // Swap elements i and j
-//       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-//     }
-//     return shuffled;
-//   }
-
-//   useEffect(() => {
-//     const shuffled = shuffleArray(cities);
-//     setShuffledCities(shuffled);
-//     console.log("✅ Local shuffledCities:", shuffled);
-//   }, []); // Only once!
-
-//   useEffect(() => {
-//     const randomType =
-//       questionTypes[Math.floor(Math.random() * questionTypes.length)];
-//     setQuestionType(randomType);
-//     console.log("New question type:", randomType);
-//   }, [currentRound]); // re-run whenever currentRound changes
-
-//   // console.log("cities list from before return Gameplay", cities);
-
-//   return (
-//     <>
-//       <h1>GAMEPLAY</h1>
-//       <h3>
-//         Round {currentRound} of {numQuestions}
-//       </h3>
-//       <h3>Choose your answer</h3>
-//       <QuestionFormat
-//         key={`round-${currentRound}`}
-//         currentCities={currentCities}
-//         questionType={questionType}
-//         player1Score={player1Score}
-//         setPlayer1Score={setPlayer1Score}
-//       ></QuestionFormat>
-//       <button onClick={handleGamePlayNext}>
-//         {currentRound < numQuestions ? "NEXT" : "FINISH"}
-//       </button>
-//     </>
-//   );
-// }
-
-// export default Gameplay;
-
 import QuestionFormat from "./QuestionFormat";
 import { useState, useEffect } from "react";
 
@@ -94,16 +13,22 @@ function Gameplay({
   const [currentRound, setCurrentRound] = useState(1);
   const [shuffledCities, setShuffledCities] = useState([]);
 
-  // ✅ This happens BEFORE we slice!
+  //upon load, shffule the cities
   useEffect(() => {
     const shuffled = shuffleArray(cities);
     setShuffledCities(shuffled);
     console.log("✅ Local shuffledCities:", shuffled);
-  }, []); // Only once!
+  }, []);
 
+  //so this is cool in that I will never get a repeat
+  //not cool bc once city is used cannot be used again
+  // therefore not truly random
+  //also what is cool is round controls which cities we get
   const startIndex = (currentRound - 1) * 2;
   const currentCities = shuffledCities.slice(startIndex, startIndex + 2);
 
+  //if more rounds, continue in gameplay
+  //else, go to outro
   function handleGamePlayNext() {
     if (currentRound < numQuestions) {
       setCurrentRound(currentRound + 1);
@@ -112,6 +37,8 @@ function Gameplay({
     }
   }
 
+  //shuffle function from ai, Fisher-Yates shuffle
+  ///small initial testing shows it works for our purposes
   function shuffleArray(array) {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -121,6 +48,8 @@ function Gameplay({
     return shuffled;
   }
 
+  //when current round updated (end of last round)
+  //we get a random question type
   useEffect(() => {
     const randomType =
       questionTypes[Math.floor(Math.random() * questionTypes.length)];
@@ -128,7 +57,7 @@ function Gameplay({
     console.log("New question type:", randomType);
   }, [currentRound]);
 
-  // ✅ Only render once we have enough cities to play
+  // only render if both city data loaded
   if (shuffledCities.length < 2) {
     return <p>Loading cities...</p>;
   }
@@ -141,6 +70,7 @@ function Gameplay({
       </h3>
       <h3>Choose your answer</h3>
       <QuestionFormat
+        //key maybe not necessary anymore, for trying to differentiate loads of QuestionFormat
         key={`round-${currentRound}`}
         currentCities={currentCities}
         questionType={questionType}

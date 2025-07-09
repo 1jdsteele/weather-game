@@ -17,6 +17,7 @@ function Intro({
   numQuestions,
   setNumQuestions,
 }) {
+  //what I do not like is setting it EVERY timeit changes
   const handleChange = (event) => {
     setRegion(event.target.value);
   };
@@ -25,7 +26,9 @@ function Intro({
     <>
       <h1>INTRO</h1>
       <h3>intro title: cache seemingly necessary, i cry</h3>
+      {/* in the future I see numPlayers multiplying the necessary rounds */}
       {/* <PlayerChoice question={"How many players?"}></PlayerChoice> */}
+
       <PlayerChoice
         question={"How many questions?"}
         numQuestions={numQuestions}
